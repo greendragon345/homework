@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:id="@+id/firsnam"
+        android:layout_height="wrap_content"
+        android:hint="enter first name"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lastnam"
+        android:hint="enter last name"/>
+
+    <ImageView
+        android:id="@+id/pic"
+        android:layout_width="246dp"
+        android:layout_height="373dp" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/picpun"
+        android:text="take a pic"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="submit"
+        android:id="@+id/finish"/>
+
+</LinearLayout>
