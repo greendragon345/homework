@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         b1 = findViewById(R.id.yesmyking);
         b1.setOnClickListener(this);
-
+        startService(new Intent(this,polishcow.class));
     }
 
     @Override
