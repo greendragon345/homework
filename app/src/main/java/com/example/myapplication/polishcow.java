@@ -17,16 +17,23 @@ public class polishcow extends Service {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        try {
-
-
-         plr = MediaPlayer.create(this,R.raw.jhony);
-        }
-        catch (Exception e){ plr = MediaPlayer.create(this, Settings.System.DEFAULT_RINGTONE_URI);}
+    public void onCreate() {
+        super.onCreate();
+        plr = MediaPlayer.create(this,R.raw.mii);
         plr.setLooping(true);
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+//        try {
+//
+//
+//         plr = MediaPlayer.create(this,R.raw.jhony);
+//        }
+//        catch (Exception e){ plr = MediaPlayer.create(this, Settings.System.DEFAULT_RINGTONE_URI);}
+
         plr.start();
-        return super.onStartCommand(intent, flags, startId);
+        return START_STICKY;
 
     }
 

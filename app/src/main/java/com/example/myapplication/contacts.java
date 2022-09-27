@@ -37,8 +37,11 @@ public class contacts extends AppCompatActivity implements AdapterView.OnItemLon
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
+        ap2 = getSharedPreferences("contactlst",0);
+//        SharedPreferences.Editor pcsp = ap2.edit();
+//        pcsp.clear();pcsp.commit();
         id=0;
-        b1.findViewById(R.id.fucked);
+        b1=findViewById(R.id.fucked);
         b1.setOnClickListener(this);
         fllv2 = findViewById(R.id.lv);
         alfl2 = new ArrayList<>();
@@ -46,12 +49,12 @@ public class contacts extends AppCompatActivity implements AdapterView.OnItemLon
         fllv2.setAdapter(AAFL2);
         fllv2.setOnItemLongClickListener(this);
         fllv2.setOnItemClickListener(this);
-
+        updatedat();
     }
 
     @Override
     public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-        num = i;
+        num += 1;
         opendalg();
         return true;
     }
@@ -59,12 +62,12 @@ public class contacts extends AppCompatActivity implements AdapterView.OnItemLon
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         SharedPreferences.Editor pcsp = ap2.edit();
-        pcsp.remove("fname"+i);
-        pcsp.remove("lname"+i);
-        pcsp.remove("imagenum"+i);
-        pcsp.putString("fname"+i,"nada");
-        pcsp.putString("lname"+i,"nada");
-        pcsp.putString("imagenum"+i,"nada");
+        pcsp.remove("fname"+(i+1));
+        pcsp.remove("lname"+(i+1));
+        pcsp.remove("imagenum"+(i+1));
+        pcsp.putString("fname"+(i+1),"nada");
+        pcsp.putString("lname"+(i+1),"nada");
+        pcsp.putString("imagenum"+(i+1),"nada");
         pcsp.apply();
         alfl2.remove(i);
         AAFL2.notifyDataSetChanged();
@@ -98,6 +101,7 @@ public class contacts extends AppCompatActivity implements AdapterView.OnItemLon
                 AAFL2.notifyDataSetChanged();
                 NOE=false;
             }else {
+
                 SharedPreferences.Editor pcsp = ap2.edit();
                 pcsp.remove("fname"+num);
                 pcsp.remove("lname"+num);
@@ -106,8 +110,9 @@ public class contacts extends AppCompatActivity implements AdapterView.OnItemLon
                 pcsp.putString("lname"+num,lname.getText().toString());
                 ivleague.setDrawingCacheEnabled(true);
                 pcsp.putString("imagenum"+num,convertBitmapToString(ivleague.getDrawingCache()));
-                pcsp.apply();
+                pcsp.commit();
                 contc ncont = new contc(ivleague.getDrawingCache(),fname.getText().toString(),lname.getText().toString(),getResources());
+                alfl2.remove(num-1);
                 alfl2.add(ncont);
                 AAFL2.notifyDataSetChanged();
             }
@@ -148,11 +153,13 @@ public class contacts extends AppCompatActivity implements AdapterView.OnItemLon
         editOaddname.setContentView(R.layout.enterdata);
         editOaddname.setTitle("yasssqueen");
         editOaddname.setCancelable(true);
-        b2 = editOaddname.findViewById(R.id.submit);
+        b2 = editOaddname.findViewById(R.id.finish);
         takepic = editOaddname.findViewById(R.id.picpun);
         fname = editOaddname.findViewById(R.id.firsnam);
         lname = editOaddname.findViewById(R.id.lastnam);
         ivleague = editOaddname.findViewById(R.id.pic);
+        b2.setOnClickListener(this);
+        takepic.setOnClickListener(this);
         editOaddname.show();
 
     }
@@ -163,6 +170,9 @@ public class contacts extends AppCompatActivity implements AdapterView.OnItemLon
         }catch (Exception e){
 
         }
+        try {
+
+
         for (int i = 1; i <=id; i++) {
             if(!(ap2.getString("fname"+i,"").equals("nada"))){
                 contc ncont = new contc(convertStringToBitmap(ap2.getString("imagenum"+i,"")),ap2.getString("fname"+i,""),ap2.getString("lname"+i,""),getResources());
@@ -170,7 +180,7 @@ public class contacts extends AppCompatActivity implements AdapterView.OnItemLon
                 AAFL2.notifyDataSetChanged();
             }
 
-        }
+        }}catch (Exception e){}
 
 
 

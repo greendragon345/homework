@@ -29,14 +29,20 @@ private SharedPreferences aads;
         b2=findViewById(R.id.changevis);
         b1.setOnClickListener(this);
         b2.setOnClickListener(this);
+        aads = getSharedPreferences("jhony",0);
         getthisMF();
     }
 
 
     public void getthisMF(){
+        try {
+
+
     t1.setText(aads.getString("id:",""));
         t2.setText(aads.getString("fname:",""));
-        t3.setText(aads.getString("lname:",""));
+        t3.setText(aads.getString("lname:",""));}catch (Exception e){
+
+        }
 
 
 
@@ -49,7 +55,7 @@ private SharedPreferences aads;
             spl1.putString("id:",t1.getText().toString());
             spl1.putString("fname:",t2.getText().toString());
             spl1.putString("lname:",t3.getText().toString());
-            spl1.commit();
+            spl1.apply();
             Toast.makeText(this,"data saved",Toast.LENGTH_LONG);
         }else {
             startActivity(new Intent(register.this,contacts.class));
